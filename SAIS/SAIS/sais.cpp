@@ -4,21 +4,24 @@
 
 using namespace std;
 
-int sais(vector<string> *SA,string T,int size) {
+int sais(vector<vector<int>> &SA,string T,int size) {
 
 	vector<int> t(size);
 
 	vector<int> P1, S1;
 
-	//L,S‚ð”»’èt[i] = true‚È‚çS
-	for (int i = 0; i < size; i++) {
+	//L,S‚ð”»’èt[i] = 1‚È‚çS
+	for (int i = size-1; i >= 0; i--) {
 		if (i == size - 1) {
 			t[i] = 1;
 		}else if (T[i] < T[i + 1]) {
 			t[i] = 1;
 		}
-		else {
+		else if(T[i] > T[i+1]){
 			t[i] = 0;
+		}
+		else {
+			t[i] = t[i + 1];
 		}
 	}
 
@@ -38,6 +41,14 @@ int sais(vector<string> *SA,string T,int size) {
 
 		}
 	}
+
+	cout << endl;
+
+	for (int i = 0; i < P1.size(); i++) {
+		cout << T.substr(P1[i], T.size() - 1) << endl;
+	}
+
+	cout << endl;
 
 	for (int i = 0; i < P1.size();i++) {
 		if (i == P1.size() - 1) {
@@ -85,7 +96,8 @@ int main(int argc, char *argv[]) {
 
 	vector<vector<int>> SA;
 	
-	string T = "abracadabra" ;
+	//string T = "abracadabra" ;
+	string T = "mmiissiissiippii";
 
 	makeBucket(SA, T);
 
@@ -100,7 +112,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 
-	//sais(&SA,T, T.size());
+	sais(SA,T, T.size());
 
 	return 0;
 }
