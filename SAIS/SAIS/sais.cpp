@@ -4,7 +4,9 @@
 
 using namespace std;
 
-int sais(vector<vector<int>> &SA,string T,int size) {
+int getBucket(char c, string alphabets);
+
+int sais(vector<vector<int>> &SA,string T,int size,string alphabets) {
 
 	vector<int> t(size);
 
@@ -50,6 +52,7 @@ int sais(vector<vector<int>> &SA,string T,int size) {
 
 	cout << endl;
 
+	/*
 	for (int i = 0; i < P1.size();i++) {
 		if (i == P1.size() - 1) {
 			cout << T[i] << endl;
@@ -57,33 +60,59 @@ int sais(vector<vector<int>> &SA,string T,int size) {
 		else {
 			cout << T.substr(P1[i], P1[i + 1]) << endl;
 		}
-	}
-
-
+	}*/
 	
 
+	cout << alphabets << endl;
 	for (int i = 0; i < P1.size(); i++) {
-		
+
+		if (T[P1[i]] != '$') {
+
+			int bkt = getBucket(T[P1[i]], alphabets);
+			cout << T[P1[i]] << endl;
+			cout << bkt << endl;
+
+			for (auto itr = SA[bkt].rbegin();itr != SA[bkt].rend(); ++itr) {
+				if (*itr == -1) {
+					*itr = P1[i];
+					break;
+				}
+				//cout << *itr << endl;
+			}
+		}
 	}
 
 	return 0;
 }
 
-int makeBucket(vector<vector<int>> &SA, string T) {
+int getBucket(char c, string alphabets) {
+	for (int i = 0; i < alphabets.size(); i++) {
+		if (alphabets[i] == c) {
+			return i + 1;
+		}
+		else {
+			return -1;
+		}
+	}
+}
+
+int makeBucket(vector<vector<int>> &SA, string T,string *t) {
 	vector<vector<int>> alphabet;
 
-	for (int i = 0; i < 'z' - 'a'; i++) {
+	for (int i = 0; i <= 'z' - 'a'; i++) {
 		alphabet.push_back({});
 	}
 
 	for (int i = 0; i < T.size(); i++) {
 		alphabet[T[i] - 'a'].push_back(-1);
+		
 	}
 
 	SA.push_back({ (int)T.size() });
 	for (int i = 0; i < alphabet.size(); i++) {
 		if (alphabet[i].size() != 0) {
 			SA.push_back(alphabet[i]);
+			*t += (char)(i + 'a');
 		}
 	}
 
@@ -98,8 +127,11 @@ int main(int argc, char *argv[]) {
 	
 	//string T = "abracadabra" ;
 	string T = "mmiissiissiippii";
+	string t = "";
 
-	makeBucket(SA, T);
+	makeBucket(SA, T,&t);
+
+	cout << t << endl;
 
 	T += "$";
 
@@ -110,9 +142,16 @@ int main(int argc, char *argv[]) {
 		}
 		cout << endl;
 	}
-	
 
-	sais(SA,T, T.size());
+	sais(SA,T, T.size(),t);
+
+	for (int i = 0; i < SA.size(); i++) {
+		cout << i << ":";
+		for (int j = 0; j < SA[i].size(); j++) {
+			cout << SA[i][j] << '|';
+		}
+		cout << endl;
+	}
 
 	return 0;
 }
