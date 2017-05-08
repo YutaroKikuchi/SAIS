@@ -116,6 +116,8 @@ int sais(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
 		}
 	}
 
+	
+
 	return 0;
 }
 
@@ -159,7 +161,7 @@ int makeBucket(vector<vector<int>> &SA, string T,vector<vector<int>> &sa) {
 	for (int i = 0; i < alphabet.size(); i++) {
 		if (alphabet[i].size() != 0) {
 			SA.push_back(alphabet[i]);
-			sa.push_back({ (int)(i + 'a'),0 });
+			sa.push_back({ (int)(i + 'a'),0, (int)alphabet[i].size()-1 });
 		}
 	}
 
@@ -200,7 +202,7 @@ int main(int argc, char *argv[]) {
 		cout << endl;
 	}
 
-	sais(SA,T, T.size(),sa);
+	//sais(SA,T, T.size(),sa);
 
 	showSA(SA);
 	showSA(sa);
