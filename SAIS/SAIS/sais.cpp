@@ -116,7 +116,34 @@ int sais(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
 		}
 	}
 
-	
+	cout << "********************" << endl << endl;
+
+	for (auto i = SA.rbegin(); i != SA.rend(); ++i) {
+		for (auto j = (*i).rbegin(); j != (*i).rend(); ++j) {
+			cout << "SA[i][j]:" << *j << endl;
+			//cout << !((*j - 1) >= 0) << endl;
+			if (*j - 1 >= 0) {
+				if (*j != -1) {
+					if (t[*j - 1] == 0) {
+					}
+					else {
+						cout << "T[" << *j - 1 << "]=" << T[*j - 1] << endl;
+						vector<int> bkt = getBucket(T[*j - 1], sa);
+						cout << "bkt[0]=" << bkt[0] << " bkt[2]=" << bkt[2] << endl;
+						SA[bkt[0]][bkt[2]] = *j - 1;
+						sa[bkt[0] - 1][2] -= 1;
+					}
+
+					cout << "----------------------" << endl;
+				}
+				else {
+
+				}
+			}
+			else {
+			}
+		}
+	}
 
 	return 0;
 }
@@ -135,7 +162,7 @@ int putBucket(int idx, vector<vector<int>> SA, string alphabets) {
 vector<int> getBucket(char c, vector<vector<int>> sa) {
 	for (int i = 0; i < sa.size(); i++) {
 		if (sa[i][0] == c) {
-			return { i+1  ,sa[i][1]};
+			return { i+1  ,sa[i][1],sa[i][2]};
 		}
 		else {
 			
@@ -202,7 +229,7 @@ int main(int argc, char *argv[]) {
 		cout << endl;
 	}
 
-	//sais(SA,T, T.size(),sa);
+	sais(SA,T, T.size(),sa);
 
 	showSA(SA);
 	showSA(sa);
