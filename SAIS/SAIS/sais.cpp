@@ -5,6 +5,7 @@
 using namespace std;
 
 int getBucket(char c, string alphabets);
+int showSA(vector<vector<int>> input);
 
 int sais(vector<vector<int>> &SA,string T,int size,string alphabets) {
 
@@ -12,7 +13,7 @@ int sais(vector<vector<int>> &SA,string T,int size,string alphabets) {
 
 	vector<int> P1, S1;
 
-	//L,S‚ð”»’èt[i] = 1‚È‚çS
+	//L,S‚ð”»’èt[i] = 1‚È‚çStype
 	for (int i = size-1; i >= 0; i--) {
 		if (i == size - 1) {
 			t[i] = 1;
@@ -82,8 +83,32 @@ int sais(vector<vector<int>> &SA,string T,int size,string alphabets) {
 		}
 	}
 
+	for (auto i = SA.begin(); i != SA.end(); ++i) {
+		for (auto j = (*i).begin(); j != (*i).end(); ++j) {
+			if (*j != -1) {
+				if (t[*j - 1] == 1) {
+
+				}
+				else {
+
+				}
+			}
+		}
+	}
+
 	return 0;
 }
+
+/*
+int putBucket(int idx, vector<vector<int>> SA, string alphabets) {
+	int bkt = getBucket(T[idx], alphabets);
+	for (auto i = SA[bkt].begin(); i != SA[bkt].end(); i++) {
+		if (*i != -1) {
+			*i = 
+		}
+	}
+}
+*/
 
 int getBucket(char c, string alphabets) {
 	for (int i = 0; i < alphabets.size(); i++) {
@@ -96,7 +121,7 @@ int getBucket(char c, string alphabets) {
 	}
 }
 
-int makeBucket(vector<vector<int>> &SA, string T,string *t) {
+int makeBucket(vector<vector<int>> &SA, string T,vector<vector<int>> &sa) {
 	vector<vector<int>> alphabet;
 
 	for (int i = 0; i <= 'z' - 'a'; i++) {
@@ -112,7 +137,7 @@ int makeBucket(vector<vector<int>> &SA, string T,string *t) {
 	for (int i = 0; i < alphabet.size(); i++) {
 		if (alphabet[i].size() != 0) {
 			SA.push_back(alphabet[i]);
-			*t += (char)(i + 'a');
+			sa.push_back({ (int)(i + 'a'),0 });
 		}
 	}
 
@@ -124,12 +149,22 @@ int makeBucket(vector<vector<int>> &SA, string T,string *t) {
 int main(int argc, char *argv[]) {
 
 	vector<vector<int>> SA;
+	vector<vector<int>> sa;
 	
 	//string T = "abracadabra" ;
 	string T = "mmiissiissiippii";
 	string t = "";
 
-	makeBucket(SA, T,&t);
+	makeBucket(SA, T,sa);
+
+	for (int i = 0; i < sa.size(); i++) {
+		cout << i << ":";
+		for (int j = 0; j < sa[i].size(); j++) {
+			cout << sa[i][j] << '|';
+		}
+		cout << endl;
+	}
+	cout << "------------------" << endl;
 
 	cout << t << endl;
 
@@ -143,7 +178,7 @@ int main(int argc, char *argv[]) {
 		cout << endl;
 	}
 
-	sais(SA,T, T.size(),t);
+	//sais(SA,T, T.size(),t);
 
 	for (int i = 0; i < SA.size(); i++) {
 		cout << i << ":";
@@ -152,6 +187,19 @@ int main(int argc, char *argv[]) {
 		}
 		cout << endl;
 	}
+
+	return 0;
+}
+
+int showSA(vector<vector<int>> input) {
+	for (int i = 0; i < input.size(); i++) {
+		cout << i << ":";
+		for (int j = 0; j < input[i].size(); j++) {
+			cout << input[i][j] << '|';
+		}
+		cout << endl;
+	}
+	cout << "------------------" << endl;
 
 	return 0;
 }
