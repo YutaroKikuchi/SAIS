@@ -4,23 +4,24 @@
 
 using namespace std;
 
-int getBucket(char c, vector<vector<int>> sa);
+vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
 
-int sais(vector<vector<int>> &SA,string T,int size,vector<vector<int>> &sa) {
+int sais(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
 
 	vector<int> t(size);
 
 	vector<int> P1, S1;
 
 	//L,S‚ð”»’èt[i] = 1‚È‚çStype
-	for (int i = size-1; i >= 0; i--) {
+	for (int i = size - 1; i >= 0; i--) {
 		if (i == size - 1) {
 			t[i] = 1;
-		}else if (T[i] < T[i + 1]) {
+		}
+		else if (T[i] < T[i + 1]) {
 			t[i] = 1;
 		}
-		else if(T[i] > T[i+1]){
+		else if (T[i] > T[i + 1]) {
 			t[i] = 0;
 		}
 		else {
@@ -29,7 +30,7 @@ int sais(vector<vector<int>> &SA,string T,int size,vector<vector<int>> &sa) {
 	}
 
 	for (int i = 1; i < size; i++) {
-		
+
 		if (t[i] == 1 && t[i - 1] == 0) {
 			P1.push_back(i);
 		}
@@ -37,10 +38,10 @@ int sais(vector<vector<int>> &SA,string T,int size,vector<vector<int>> &sa) {
 
 	for (int i = 0; i < t.size(); i++) {
 		if (t[i] == 0) {
-			cout << T.substr(i,T.size()-i) << ":L" << endl;
+			cout << T.substr(i, T.size() - i) << ":L" << endl;
 		}
 		else {
-			cout << T.substr(i,T.size()-i) << ":S" << endl;
+			cout << T.substr(i, T.size() - i) << ":S" << endl;
 
 		}
 	}
@@ -62,38 +63,58 @@ int sais(vector<vector<int>> &SA,string T,int size,vector<vector<int>> &sa) {
 			cout << T.substr(P1[i], P1[i + 1]) << endl;
 		}
 	}*/
-	
+
 
 	for (int i = 0; i < P1.size(); i++) {
 
+		cout << "P1[i]=" << P1[i] << endl << endl;
+
 		if (T[P1[i]] != '$') {
 
-			int bkt = getBucket(T[P1[i]], sa);
+			vector<int> hoge = getBucket(T[P1[i]], sa);
+			int bkt = hoge[0];
 			cout << T[P1[i]] << endl;
 			cout << bkt << endl;
 
-			for (auto itr = SA[bkt].rbegin();itr != SA[bkt].rend(); ++itr) {
+			for (auto itr = SA[bkt].rbegin(); itr != SA[bkt].rend(); ++itr) {
+				cout << "bkt=" << *itr << endl << endl;
 				if (*itr == -1) {
 					*itr = P1[i];
 					break;
 				}
-				cout << *itr << endl;
 			}
 		}
 	}
-	/*
+
+	//showSA(SA);
+	//showSA(sa);
+
 	for (auto i = SA.begin(); i != SA.end(); ++i) {
 		for (auto j = (*i).begin(); j != (*i).end(); ++j) {
-			if (*j != -1) {
-				if (t[*j - 1] == 1) {
+			cout << "SA[i][j]:" << *j << endl;
+			//cout << !((*j - 1) >= 0) << endl;
+			if (*j - 1 >= 0) {
+				if (*j != -1) {
+					if (t[*j - 1] == 1) {
+					}
+					else {
+						cout << "T[" << *j - 1 << "]=" << T[*j - 1] << endl;
+						vector<int> bkt = getBucket(T[*j - 1], sa);
+						cout << "bkt[0]=" << bkt[0] << " bkt[1]=" << bkt[1] << endl;
+						SA[bkt[0]][bkt[1]] = *j - 1;
+						sa[bkt[0] - 1][1] += 1;
+					}
 
+					cout << "----------------------" << endl;
 				}
 				else {
 
 				}
 			}
+			else {
+			}
 		}
-	}*/
+	}
 
 	return 0;
 }
@@ -109,15 +130,17 @@ int putBucket(int idx, vector<vector<int>> SA, string alphabets) {
 }
 */
 
-int getBucket(char c, vector<vector<int>> sa) {
+vector<int> getBucket(char c, vector<vector<int>> sa) {
 	for (int i = 0; i < sa.size(); i++) {
 		if (sa[i][0] == c) {
-			return i+1;
+			return { i+1  ,sa[i][1]};
 		}
 		else {
-			return -1;
+			
 		}
 	}
+
+	return {-1};
 }
 
 int makeBucket(vector<vector<int>> &SA, string T,vector<vector<int>> &sa) {
@@ -179,13 +202,8 @@ int main(int argc, char *argv[]) {
 
 	sais(SA,T, T.size(),sa);
 
-	for (int i = 0; i < SA.size(); i++) {
-		cout << i << ":";
-		for (int j = 0; j < SA[i].size(); j++) {
-			cout << SA[i][j] << '|';
-		}
-		cout << endl;
-	}
+	showSA(SA);
+	showSA(sa);
 
 	return 0;
 }
