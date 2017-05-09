@@ -1,13 +1,20 @@
-#include <iostream>
-#include <string>
-#include <boost/version.hpp>
+#include "sais.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
 
-	for (auto hoge : { 1,2,3,4,5 }) {
-		cout << hoge << "\n";
+	vector<int> SA;
+
+	string T = "abracadabra";
+	//	string T = "mmiissiissiippii";
+
+	sais(SA, T);
+	T += "$";
+
+	for (auto i = SA.begin(); i != SA.end(); i++) {
+		cout << "SA[" << *i << "]:\t" << T.substr(*i, T.size() - 1) << endl;
 	}
 
+	return 0;
 }
