@@ -6,6 +6,7 @@ using namespace std;
 
 vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
+int sais(vector<int> &SA, string T);
 
 int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
 
@@ -199,50 +200,18 @@ int makeBucket(vector<vector<int>> &SA, string T,vector<vector<int>> &sa) {
 
 int main(int argc, char *argv[]) {
 
-	vector<vector<int>> SA;
-	vector<vector<int>> sa;
+	vector<int> SA;
 	
 	string T = "abracadabra" ;
 //	string T = "mmiissiissiippii";
-	string t = "";
 
-	makeBucket(SA, T,sa);
-
-	for (int i = 0; i < sa.size(); i++) {
-		cout << i << ":";
-		for (int j = 0; j < sa[i].size(); j++) {
-			cout << sa[i][j] << '|';
-		}
-		cout << endl;
-	}
-	cout << "------------------" << endl;
-
-	cout << t << endl;
-
+	sais(SA, T);
 	T += "$";
 
-	for (int i = 0; i < SA.size(); i++) {
-		cout << i << ":";
-		for (int j = 0; j < SA[i].size(); j++) {
-			cout << SA[i][j] << '|';
-		}
-		cout << endl;
-	}
-
-	sais(SA,T, T.size(),sa);
-
-	/*
-	showSA(SA);
-	showSA(sa);
-	*/
-
-	cout << "****************************" << endl;
-
 	for (auto i = SA.begin(); i != SA.end(); i++) {
-		for (auto j = (*i).begin(); j != (*i).end(); j++) {
-			cout << "SA[" << *j << "]:\t" << T.substr(*j, T.size() - 1) << endl;
-		}
+		cout << "SA[" << *i << "]:\t" << T.substr(*i, T.size() - 1) << endl;
 	}
+
 	return 0;
 }
 
