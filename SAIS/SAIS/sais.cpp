@@ -1,12 +1,9 @@
-#include <iostream>
-#include <vector>
-#include <string>
+#include "sais.h"
 
 using namespace std;
 
 vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
-int sais(vector<int> &SA, string T);
 
 int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
 
@@ -191,25 +188,6 @@ int makeBucket(vector<vector<int>> &SA, string T,vector<vector<int>> &sa) {
 			SA.push_back(alphabet[i]);
 			sa.push_back({ (int)(i + 'a'),0, (int)alphabet[i].size()-1 });
 		}
-	}
-
-	return 0;
-}
-
-
-
-int main(int argc, char *argv[]) {
-
-	vector<int> SA;
-	
-	string T = "abracadabra" ;
-//	string T = "mmiissiissiippii";
-
-	sais(SA, T);
-	T += "$";
-
-	for (auto i = SA.begin(); i != SA.end(); i++) {
-		cout << "SA[" << *i << "]:\t" << T.substr(*i, T.size() - 1) << endl;
 	}
 
 	return 0;
