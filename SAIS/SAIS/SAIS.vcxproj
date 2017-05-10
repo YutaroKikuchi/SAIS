@@ -25,6 +25,9 @@
   <ItemGroup>
     <ClInclude Include="sais.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="sais_lcp.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DB140A37-5A2C-4AAF-A677-0531CBF84FC5}</ProjectGuid>
