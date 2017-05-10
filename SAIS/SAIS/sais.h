@@ -19,3 +19,4 @@
 using namespace std;
 
 int sais(vector<int> &SA, string T);
+int showSA(vector<vector<int>> input);
