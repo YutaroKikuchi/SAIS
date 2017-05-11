@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\cygwin64\home\yusan\m2\nandemo\sais-lite-lcp\sais_lcp.c" />
     <ClCompile Include="sais.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sais.h" />
+    <ClInclude Include="sais_lcp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sais_lcp.cpp" />
