@@ -20,3 +20,4 @@ using namespace std;
 
 int sais(vector<int> &SA, string T);
 int showSA(vector<vector<int>> input);
+int makeBucket(vector<vector<int>> &SA, string T, vector<vector<int>> &sa);

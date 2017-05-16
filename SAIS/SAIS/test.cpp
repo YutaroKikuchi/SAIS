@@ -15,6 +15,8 @@ int showSA(unsigned char *t,int idx,int size) {
 	return 0;
 }
 
+
+/*
 int main(int argc, char *argv[]) {
 
 	cout << "start init" << endl;
@@ -25,7 +27,6 @@ int main(int argc, char *argv[]) {
 	int *LCP;
 	long n;
 
-	/* Open a file for reading. */
 	if ((fp = fopen(fname = "C:\\cygwin64\\home\\yusan\\data.txt", "rb")) == NULL) {
 		fprintf(stderr, "%s: Cannot open file `%s': ", argv[0], fname);
 		perror(NULL);
@@ -90,4 +91,4 @@ int main(int argc, char *argv[]) {
 	}
 
 	return 0;
-}
+}*/
