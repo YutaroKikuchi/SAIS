@@ -27,6 +27,7 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		}
 	}
 
+	//LMSを判定 インデックスをP1に格納
 	for (int i = 1; i < size; i++) {
 
 		if (t[i] == 1 && t[i - 1] == 0) {
@@ -34,6 +35,7 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		}
 	}
 
+	//suffixを表示
 	for (int i = 0; i < t.size(); i++) {
 		if (t[i] == 0) {
 			cout << T.substr(i, T.size() - i) << ":L" << endl;
@@ -46,6 +48,8 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 
 	cout << endl;
 
+
+	//LMSsuffixを表示
 	for (int i = 0; i < P1.size(); i++) {
 		cout << T.substr(P1[i], T.size() - 1) << endl;
 	}
@@ -63,6 +67,7 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 	}*/
 
 
+	// 各cバケットを作成 LMSsuffixを各バケットの末尾に追加
 	for (int i = 0; i < P1.size(); i++) {
 
 		cout << "P1[i]=" << P1[i] << endl << endl;
@@ -87,6 +92,7 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 	//showSA(SA);
 	//showSA(sa);
 
+	//SAの先頭から探索 対象となるSuffixの1つ前のsuffixがSだったらバケットの先頭に追加
 	for (auto i = SA.begin(); i != SA.end(); ++i) {
 		for (auto j = (*i).begin(); j != (*i).end(); ++j) {
 			cout << "SA[i][j]:" << *j << endl;
@@ -116,6 +122,7 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 
 	cout << "********************" << endl << endl;
 
+	//SAの先頭から探索 対象となるSuffixの1つあとのsuffixがLだったらバケットの末尾に追加
 	for (auto i = SA.rbegin(); i != SA.rend(); ++i) {
 		for (auto j = (*i).rbegin(); j != (*i).rend(); ++j) {
 			cout << "SA[i][j]:" << *j << endl;
