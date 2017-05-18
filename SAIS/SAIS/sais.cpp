@@ -143,6 +143,46 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		}
 	}
 
+	vector<string> R;
+
+	//cout << "T.substr(" << P1[0] << "," << P1[1] << "):" << T.substr(P1[0], P1[1]) << endl;
+	
+	auto index = P1.begin();
+	while (index != P1.end()) {
+		cout << *index << endl;
+
+		if (index == P1.end()) {
+			cout << T[*index] << endl;
+		}
+		else {
+			cout << T.substr(*index, *(index + 1) - *index + 1) << endl;
+		}
+
+		++index;
+	}
+
+	/*
+	for (auto i = P1.begin(); i != P1.end(); i++) {
+		cout << *i << endl;
+		cout << T.substr(*i, *(i + 1) - *i + 1) << endl;
+
+
+		
+		if (i == P1.end()) {
+			R.push_back(T.substr(*i,*i));
+			cout << T.substr(*i, *i) << endl;
+		}
+		else {
+			R.push_back(T.substr((*i), *(i + 1)));
+			cout << T.substr(*i, *(i + 1)) << endl;
+		}
+	}*/
+
+	/*
+	cout << "**********************" << endl;
+	for (auto i = R.begin(); i != R.end(); i++) {
+		cout << *i << endl;
+	}*/
 	return 0;
 }
 
