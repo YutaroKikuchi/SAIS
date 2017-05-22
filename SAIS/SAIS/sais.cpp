@@ -161,22 +161,30 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 	}
 
 	vector<int> v(R.size());
-	int order = 1;
+	int order = 0;
 
 	for (auto i = SA.begin(); i < SA.end(); i++) {
 		for (auto j = (*i).begin(); j < (*i).end(); j++) {
 			for (auto k = P1.begin(); k < P1.end(); k++) {
 				if (*j == *k) {
-					v[distance(P1.begin(), k)] = order;
+					cout << "*j=" << *j << "*k=" << *k << endl;
+					v[order] = distance(P1.begin(), k);
+					cout << "v[" << order << "]=" << distance(P1.begin(), k) << endl;
 					++order;
 				}
 			}
 		}
 	}
 
+	
+	cout << "**********************" << endl;
+	for (auto i = R.begin(); i != R.end(); i++) {
+		cout << "R[" << distance(R.begin(),i) << "]: " << *i << endl;
+	}
+
 	cout << "**********************" << endl;
 	for (auto i = v.begin(); i != v.end(); i++) {
-		cout << *i << endl;
+		cout << "v[" << distance(v.begin(),i) << "]: " << *i << endl;
 	}
 	return 0;
 }
