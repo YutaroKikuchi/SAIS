@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
 
 	string T = "abracadabra";
 	//	string T = "mmiissiissiippii";
+	//string T = "abababa";
 
 	sais(SA, T);
 	T += "$";
