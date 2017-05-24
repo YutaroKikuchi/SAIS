@@ -5,9 +5,10 @@ using namespace std;
 vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
 int isUnique(vector<int> vec);
-int induceSAfromSA1(vector<vector<int>> SA, vector<int> SA1, vector<vector<int>> sa);
+int induceSAfromSA1(vector<vector<int>> SA, string T, vector<int> SA1, vector<vector<int>> sa, vector<int> P1);
 int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa, vector<int> &P1);
 int constructS1(vector<vector<int>> &SA, vector<vector<int>> sa, vector<int> P1, string T, vector<int> &S1);
+vector<int> getBucket_put2SA(char c, vector<vector<int>> &sa);
 
 int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa) {
 
@@ -28,12 +29,14 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> s
 	if (isUnique(T1) == 1) {
 		cout << "uniq" << endl;
 		for (auto i = T1.begin(); i < T1.end(); i++) {
-			SA1[*i] = distance(T1.begin(), i);			
+			SA1[*i] = distance(T1.begin(), i);
 		}
 	}
 	else {
 		cout << "not uniq" << endl;
 	}
+
+	induceSAfromSA1(SA, T, SA1, sa, LMS_index);
 
 	return 0;
 
@@ -247,11 +250,52 @@ int putBucket(int idx, vector<vector<int>> SA, string alphabets) {
 }
 */
 
-int induceSAfromSA1(vector<vector<int>> SA, vector<int> SA1,vector<vector<int>> sa) {
+int induceSAfromSA1(vector<vector<int>> SA, string T, vector<int> SA1,vector<vector<int>> sa,vector<int> P1) {
 
 	for (auto i = SA.begin(); i < SA.end(); i++) {
 		for (auto j = (*i).begin(); j < (*i).end(); j++) {
 			(*j) = -1;
+		}
+	}
+
+	cout << endl << SA1.size() << endl << endl;
+
+	for (auto i = SA1.rbegin(); i < SA1.rend(); i++) {
+		cout << T.substr(P1[*i],T.size()) << endl;
+		if (T[P1[*i]] == '$') {
+			SA[0][0] = P1[*i];
+		}
+		else {
+			vector<int> bkt = getBucket_put2SA(T[P1[*i]], sa);
+			SA[bkt[0]][bkt[2]] = P1[*i];
+			
+		}
+	}
+
+	for (auto i = SA.begin(); i != SA.end(); ++i) {
+		for (auto j = (*i).begin(); j != (*i).end(); ++j) {
+			cout << "SA[i][j]:" << *j << endl;
+			//cout << !((*j - 1) >= 0) << endl;
+			if (*j - 1 >= 0) {
+				if (*j != -1) {
+					if (t[*j - 1] == 1) {
+					}
+					else {
+						cout << "T[" << *j - 1 << "]=" << T[*j - 1] << endl;
+						vector<int> bkt = getBucket(T[*j - 1], sa);
+						cout << "bkt[0]=" << bkt[0] << " bkt[1]=" << bkt[1] << endl;
+						SA[bkt[0]][bkt[1]] = *j - 1;
+						sa[bkt[0] - 1][1] += 1;
+					}
+
+					cout << "----------------------" << endl;
+				}
+				else {
+
+				}
+			}
+			else {
+			}
 		}
 	}
 	
@@ -269,6 +313,21 @@ vector<int> getBucket(char c, vector<vector<int>> sa) {
 	}
 
 	return {-1};
+}
+
+vector<int> getBucket_put2SA(char c, vector<vector<int>> &sa) {
+	for (int i = 0; i < sa.size(); i++) {
+		if (sa[i][0] == c) {
+			vector<int> returnbkt = { i + 1  ,sa[i][1],sa[i][2] };
+			sa[i][2]--;
+			return returnbkt;
+		}
+		else {
+
+		}
+	}
+
+	return { -1 };
 }
 
 int makeBucket(vector<vector<int>> &SA, string T,vector<vector<int>> &sa) {
