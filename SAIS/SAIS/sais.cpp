@@ -160,7 +160,7 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		++index;
 	}
 
-	vector<int> v(R.size());
+	vector<int> v(R.size(),-1);
 	int order = 0;
 
 	for (auto saidx = SA.begin(); saidx < SA.end(); saidx++) {
@@ -168,8 +168,13 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 			int order_LMS = 0;
 			for (auto p1idx = P1.begin(); p1idx < P1.end(); p1idx++) {
 				if (*saidx2 == *p1idx) {
-					v[order_LMS] = order;
-					order++;
+					if (order_LMS != 0 && R[order_LMS] == R[order_LMS - 1]) {
+						v[order_LMS] = order;
+					}
+					else {
+						v[order_LMS] = order;
+						order++;
+					}
 				}
 				order_LMS++;
 			}
@@ -185,8 +190,6 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 	for (auto i = v.begin(); i != v.end(); i++) {
 		cout << "v[" << distance(v.begin(),i) << "]: " << *i << endl;
 	}
-
-
 
 	return 0;
 }
