@@ -7,12 +7,12 @@ int showSA(vector<vector<int>> input);
 int isUnique(vector<int> vec);
 int induceSAfromSA1(vector<vector<int>> SA, vector<int> SA1, vector<vector<int>> sa);
 int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa, vector<int> &P1);
+int constructS1(vector<vector<int>> &SA, vector<vector<int>> sa, vector<int> P1, string T, vector<int> &S1);
 
 int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa) {
 
 	vector<int> LMS_index;
 	vector<int> T1;
-	vector<int> SA1;
 
 	sortLMSsub(SA, T, size, sa,LMS_index);
 
@@ -20,6 +20,20 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> s
 		cout << "P1[" << i << "]:" << LMS_index[i] << endl;
 	}
 	cout << endl;
+
+	constructS1(SA, sa, LMS_index, T,T1);
+
+	vector<int> SA1(T1.size(),-1);
+
+	if (isUnique(T1) == 1) {
+		cout << "uniq" << endl;
+		for (auto i = T1.begin(); i < T1.end(); i++) {
+			SA1[*i] = distance(T1.begin(), i);			
+		}
+	}
+	else {
+		cout << "not uniq" << endl;
+	}
 
 	return 0;
 
@@ -166,7 +180,8 @@ int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> 
 }
 
 
-int checkS1(vector<vector<int>> &SA, vector<vector<int>> sa,vector<int> P1, string T) {
+//1Ç»ÇÁS1ÇÕèdï°ÇµÇƒÇ¢ÇÈ0Ç»ÇÁèdï°ÇµÇƒÇ¢Ç»Ç¢
+int constructS1(vector<vector<int>> &SA, vector<vector<int>> sa,vector<int> P1, string T, vector<int> &S1) {
 
 	vector<string> R;
 
@@ -216,32 +231,7 @@ int checkS1(vector<vector<int>> &SA, vector<vector<int>> sa,vector<int> P1, stri
 		cout << "v[" << distance(v.begin(),i) << "]: " << *i << endl;
 	}
 
-	vector<int> SA1(v.size(),-1);
-	order = 0;
-	if (isUnique(v) == 1) {
-
-		for (auto i = v.begin(); i < v.end(); i++) {
-			SA1[*i] = distance(v.begin(), i);
-		}
-
-	}
-	else {
-
-	}
-
-	for (auto i = SA1.begin(); i != SA1.end(); i++) {
-		cout << "SA1[" << distance(SA1.begin(), i) << "]: " << *i << endl;
-	}
-	cout << endl;
-
-	for (auto i = P1.begin(); i != P1.end(); i++) {
-		cout << "P1[" << distance(P1.begin(), i) << "]: " << *i << endl;
-	}
-	cout << endl;
-
-	//showSA(sa);
-
-	induceSAfromSA1(SA, SA1,sa);
+	S1 = v;
 
 	return 0;
 }
