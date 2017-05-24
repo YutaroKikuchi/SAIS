@@ -6,20 +6,29 @@ vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
 int isUnique(vector<int> vec);
 int induceSAfromSA1(vector<vector<int>> SA, vector<int> SA1, vector<vector<int>> sa);
-int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa);
+int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa, vector<int> &P1);
 
 int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa) {
 
-	sortLMSsub(SA, T, size, sa);
+	vector<int> LMS_index;
+	vector<int> T1;
+	vector<int> SA1;
+
+	sortLMSsub(SA, T, size, sa,LMS_index);
+
+	for (int i = 0; i < LMS_index.size(); i++) {
+		cout << "P1[" << i << "]:" << LMS_index[i] << endl;
+	}
+	cout << endl;
 
 	return 0;
 
 }
 
-int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa) {
+int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa,vector<int> &P1) {
 	vector<int> t(size);
 
-	vector<int> P1, S1;
+	vector<int> S1;
 
 	//L,S‚ð”»’èt[i] = 1‚È‚çStype
 	for (int i = size - 1; i >= 0; i--) {
