@@ -192,7 +192,22 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		cout << "v[" << distance(v.begin(),i) << "]: " << *i << endl;
 	}
 
-	cout << "is unique" << isUnique(v) << endl;
+	vector<int> SA1(v.size(),-1);
+	order = 0;
+	if (isUnique(v) == 1) {
+
+		for (auto i = v.begin(); i < v.end(); i++) {
+			SA1[*i] = distance(v.begin(), i);
+		}
+
+	}
+	else {
+
+	}
+
+	for (auto i = SA1.begin(); i != SA1.end(); i++) {
+		cout << "SA1[" << distance(SA1.begin(), i) << "]: " << *i << endl;
+	}
 
 	return 0;
 }
