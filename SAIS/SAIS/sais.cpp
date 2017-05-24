@@ -5,9 +5,18 @@ using namespace std;
 vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
 int isUnique(vector<int> vec);
+int induceSAfromSA1(vector<vector<int>> SA, vector<int> SA1, vector<vector<int>> sa);
+int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa);
 
-int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
+int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa) {
 
+	sortLMSsub(SA, T, size, sa);
+
+	return 0;
+
+}
+
+int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa) {
 	vector<int> t(size);
 
 	vector<int> P1, S1;
@@ -55,12 +64,12 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 
 	/*
 	for (int i = 0; i < P1.size();i++) {
-		if (i == P1.size() - 1) {
-			cout << T[i] << endl;
-		}
-		else {
-			cout << T.substr(P1[i], P1[i + 1]) << endl;
-		}
+	if (i == P1.size() - 1) {
+	cout << T[i] << endl;
+	}
+	else {
+	cout << T.substr(P1[i], P1[i + 1]) << endl;
+	}
 	}*/
 
 
@@ -144,6 +153,12 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		}
 	}
 
+	return 0;
+}
+
+
+int checkS1(vector<vector<int>> &SA, vector<vector<int>> sa,vector<int> P1, string T) {
+
 	vector<string> R;
 
 	//cout << "T.substr(" << P1[0] << "," << P1[1] << "):" << T.substr(P1[0], P1[1]) << endl;
@@ -208,6 +223,16 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 	for (auto i = SA1.begin(); i != SA1.end(); i++) {
 		cout << "SA1[" << distance(SA1.begin(), i) << "]: " << *i << endl;
 	}
+	cout << endl;
+
+	for (auto i = P1.begin(); i != P1.end(); i++) {
+		cout << "P1[" << distance(P1.begin(), i) << "]: " << *i << endl;
+	}
+	cout << endl;
+
+	//showSA(sa);
+
+	induceSAfromSA1(SA, SA1,sa);
 
 	return 0;
 }
@@ -222,6 +247,17 @@ int putBucket(int idx, vector<vector<int>> SA, string alphabets) {
 	}
 }
 */
+
+int induceSAfromSA1(vector<vector<int>> SA, vector<int> SA1,vector<vector<int>> sa) {
+
+	for (auto i = SA.begin(); i < SA.end(); i++) {
+		for (auto j = (*i).begin(); j < (*i).end(); j++) {
+			(*j) = -1;
+		}
+	}
+	
+	return 0;
+}
 
 vector<int> getBucket(char c, vector<vector<int>> sa) {
 	for (int i = 0; i < sa.size(); i++) {
