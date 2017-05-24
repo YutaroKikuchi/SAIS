@@ -5,8 +5,8 @@ using namespace std;
 vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
 int isUnique(vector<int> vec);
-int induceSAfromSA1(vector<vector<int>> SA, string T, vector<int> SA1, vector<vector<int>> sa, vector<int> P1);
-int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa, vector<int> &P1);
+int induceSAfromSA1(vector<vector<int>> &SA, string T, vector<int> SA1, vector<vector<int>> sa, vector<int> P1,vector<int> t);
+int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa, vector<int> &P1, vector<int> &type);
 int constructS1(vector<vector<int>> &SA, vector<vector<int>> sa, vector<int> P1, string T, vector<int> &S1);
 vector<int> getBucket_put2SA(char c, vector<vector<int>> &sa);
 
@@ -14,8 +14,9 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> s
 
 	vector<int> LMS_index;
 	vector<int> T1;
+	vector<int> type;
 
-	sortLMSsub(SA, T, size, sa,LMS_index);
+	sortLMSsub(SA, T, size, sa,LMS_index,type);
 
 	for (int i = 0; i < LMS_index.size(); i++) {
 		cout << "P1[" << i << "]:" << LMS_index[i] << endl;
@@ -36,13 +37,13 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> s
 		cout << "not uniq" << endl;
 	}
 
-	induceSAfromSA1(SA, T, SA1, sa, LMS_index);
+	induceSAfromSA1(SA, T, SA1, sa, LMS_index,type);
 
 	return 0;
 
 }
 
-int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa,vector<int> &P1) {
+int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> sa,vector<int> &P1,vector<int> &type) {
 	vector<int> t(size);
 
 	vector<int> S1;
@@ -179,6 +180,8 @@ int sortLMSsub(vector<vector<int>> &SA, string T, int size, vector<vector<int>> 
 		}
 	}
 
+	type = t;
+
 	return 0;
 }
 
@@ -250,7 +253,7 @@ int putBucket(int idx, vector<vector<int>> SA, string alphabets) {
 }
 */
 
-int induceSAfromSA1(vector<vector<int>> SA, string T, vector<int> SA1,vector<vector<int>> sa,vector<int> P1) {
+int induceSAfromSA1(vector<vector<int>> &SA, string T, vector<int> SA1, vector<vector<int>> sa, vector<int> P1, vector<int> t) {
 
 	for (auto i = SA.begin(); i < SA.end(); i++) {
 		for (auto j = (*i).begin(); j < (*i).end(); j++) {
@@ -266,9 +269,14 @@ int induceSAfromSA1(vector<vector<int>> SA, string T, vector<int> SA1,vector<vec
 			SA[0][0] = P1[*i];
 		}
 		else {
-			vector<int> bkt = getBucket_put2SA(T[P1[*i]], sa);
-			SA[bkt[0]][bkt[2]] = P1[*i];
-			
+			vector<int> bkt = getBucket(T[P1[*i]], sa);
+			for (auto itr = SA[bkt[0]].rbegin(); itr != SA[bkt[0]].rend(); ++itr) {
+				cout << "bkt=" << *itr << endl << endl;
+				if (*itr == -1) {
+					*itr = P1[*i];
+					break;
+				}
+			}
 		}
 	}
 
@@ -298,6 +306,39 @@ int induceSAfromSA1(vector<vector<int>> SA, string T, vector<int> SA1,vector<vec
 			}
 		}
 	}
+
+	cout << "********************" << endl << endl;
+
+	for (auto i = SA.rbegin(); i != SA.rend(); ++i) {
+		for (auto j = (*i).rbegin(); j != (*i).rend(); ++j) {
+			cout << "SA[i][j]:" << *j << endl;
+			//cout << !((*j - 1) >= 0) << endl;
+			if (*j - 1 >= 0) {
+				if (*j != -1) {
+					if (t[*j - 1] == 0) {
+					}
+					else {
+						cout << "T[" << *j - 1 << "]=" << T[*j - 1] << endl;
+						vector<int> bkt = getBucket(T[*j - 1], sa);
+						cout << "bkt[0]=" << bkt[0] << " bkt[2]=" << bkt[2] << endl;
+						SA[bkt[0]][bkt[2]] = *j - 1;
+						sa[bkt[0] - 1][2] -= 1;
+					}
+
+					cout << "----------------------" << endl;
+				}
+				else {
+
+				}
+			}
+			else {
+			}
+		}
+	}
+
+	showSA(SA);
+
+	cout << "END" << endl;
 	
 	return 0;
 }
