@@ -4,6 +4,7 @@ using namespace std;
 
 vector<int> getBucket(char c, vector<vector<int>> sa);
 int showSA(vector<vector<int>> input);
+int isUnique(vector<int> vec);
 
 int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &sa) {
 
@@ -191,6 +192,8 @@ int sais_main(vector<vector<int>> &SA, string T, int size, vector<vector<int>> &
 		cout << "v[" << distance(v.begin(),i) << "]: " << *i << endl;
 	}
 
+	cout << "is unique" << isUnique(v) << endl;
+
 	return 0;
 }
 
@@ -252,6 +255,19 @@ int showSA(vector<vector<int>> input) {
 	cout << "------------------" << endl;
 
 	return 0;
+}
+
+int isUnique(vector<int> vec) {
+
+	for (auto i = vec.begin(); i < vec.end(); i++) {
+		for (auto j = i + 1; j < vec.end(); j++) {
+			if (*i == *j) {
+				return 0;
+			}
+		}
+	}
+
+	return 1;
 }
 
 int sais(vector<int> &SA, string T) {

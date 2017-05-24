@@ -7,8 +7,8 @@ int main(int argc, char *argv[]) {
 	vector<int> SA;
 
 	//string T = "abracadabra";
-	//string T = "mmiissiissiippii";
-	string T = "abababa";
+	string T = "mmiissiissiippii";
+	//string T = "abababa";
 	//string T = "acbcbcb";
 
 	sais(SA, T);
